@@ -10,13 +10,18 @@ namespace Triangularity.Models
         public int ImageSize { get; set; } = 60;
         public int TriangleLegSize { get; set; } = 10;
 
-        public List<Point> GetAllVertices()
+        public string GetLocationByVertices(int v1x, int v1y, int v2x, int v2y, int v3x, int v3y)
         {
             try
             {
-                return new List<Point>(6);
+                var row = (char)((v3y/TriangleLegSize) + 64);
+                var col = (v1x / TriangleLegSize) + (v3x / TriangleLegSize);
+                return "The triangle is located at " + row.ToString() + col.ToString();
             }
-            catch { return null; }
+            catch 
+            { 
+                return "Unable to Locate Triangle"; 
+            }
         }
 
         public Triangle GetVerticesByRowCol(char row, int column)
@@ -25,8 +30,8 @@ namespace Triangularity.Models
             // Vertices 2 and 3 will be the same for each column
             try
             {
-                bool isLower = column % 2 == 0;
-                int ColVal = isLower ? (column / 2) : (column / 2) + 1;
+                bool isLower = column % 2 != 0;
+                int ColVal = isLower ? (column / 2) + 1 : (column / 2);
                 int RowVal = char.ToUpper(row) - 64; // ASCII is fun
 
                 var outTriangle = new Triangle
