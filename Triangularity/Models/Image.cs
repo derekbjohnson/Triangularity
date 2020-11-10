@@ -1,29 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace Triangularity.Models
 {
     public class Image
     {
+        //TODO: Expand to determine which triangle would contain coordinate (single coordinate)
 
+        //TODO: Confirm size and Triangle leg size are both greater than zero
         public int ImageSize { get; set; } = 60;
+
+        //TODO: Determine if leg size is less than image size
         public int TriangleLegSize { get; set; } = 10;
+
+        //TODO: Determine if vertices are appropriate size (According to leg size)?
+        //TODO: Determine if vertices 
+        private bool IsValidVertex(int x, int y) => ((0 <= x) && (x <= ImageSize) && (0 <= y) && (y <= ImageSize));
+
+        private bool IsValidLocation(char row, int column)
+        {
+            bool isValid = true;
+
+            // Artificial constraint
+            isValid = char.ToUpper(row) - 64 >= 1;
+
+            return isValid;
+
+        }
 
         public string GetLocationByVertices(int v1x, int v1y, int v2x, int v2y, int v3x, int v3y)
         {
+            if (!IsValidVertex(v1x, v1y) || !IsValidVertex(v2x, v2y) || !IsValidVertex(v3x, v3y))
+                return null;
+
             try
             {
                 var row = (char)((v3y/TriangleLegSize) + 64);
                 var col = (v1x / TriangleLegSize) + (v3x / TriangleLegSize);
-                return "The triangle is located at " + row.ToString() + col.ToString();
+                return row.ToString() + col.ToString();
             }
             catch 
-            { 
-                return "Unable to Locate Triangle"; 
+            {
+                return null;
             }
         }
 
+        //TODO: Determine if row/col valid
         public Triangle GetVerticesByRowCol(char row, int column)
         {
             // Vertex 1 will be dependent on the triangle's orientation
@@ -46,8 +68,9 @@ namespace Triangularity.Models
             }
             catch (Exception)
             {
-                return new Triangle();
+                return null;
             }
         }
+
     }
 }
