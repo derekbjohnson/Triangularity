@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
@@ -7,7 +6,18 @@ namespace Triangularity.Models
 {
     public class Triangle
     {
+        public Triangle() { }
+        public Triangle(int v1x, int v1y, int v2x, int v2y, int v3x, int v3y)
+        {
+            Vertex1 = new Point(v1x, v1y);
+            Vertex2 = new Point(v2x, v2y);
+            Vertex3 = new Point(v3x, v3y);
+        }
+
         private int _LegSize = 10;
+        
+        [Required]
+        [Range(1,int.MaxValue,ErrorMessage = "The leg size should be greater than 1 and less than 2147483647")]
         public int LegSize
         {
             get { return _LegSize; }

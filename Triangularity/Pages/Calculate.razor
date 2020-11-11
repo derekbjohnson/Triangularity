@@ -1,0 +1,56 @@
+﻿@page "/calculate"
+
+<h1>Calculate Triangle Row and Column</h1>
+<p>Given the vertex coordinates, calculate the row and column for the triangle:</p>
+
+<EditForm Model="@img" OnSubmit="GetTriangle">
+    <InputText @bind-Value="row"/>
+    <InputNumber @bind-Value="column"/>
+    <button type="submit">Triangulate!</button>
+</EditForm>
+<br/> <br/>
+<ul>
+    @foreach(var calculated in calculatedTriangles)
+    {
+        <li>Triangle @calculated.row @calculated.column located at @triangle.Vertex1, @triangle.Vertex2, @triangle.Vertex3</li>
+    }
+</ul>
+
+@code{     
+    private Triangularity.Models.Image img { get; set; }
+    private Triangularity.Models.Triangle triangle { get; set; }
+    private List<searchedElements> calculatedTriangles = new List<searchedElements>();
+
+    private string row { get; set; }
+    private int column { get; set; }
+
+    protected override void OnInitialized()
+    {
+        img = new Triangularity.Models.Image();
+        row = "B";
+        column = 3;
+        GetTriangle();
+    }
+
+    private void GetTriangle()
+    {
+        try
+        {
+            triangle = img.GetVerticesByRowCol(char.Parse(row), column);
+
+            calculatedTriangles.Add(new searchedElements { triangle = triangle, row = row, column = column });
+            calculatedTriangles.Add(new searchedElements { triangle = triangle, row = row, column = column });
+
+        }
+        catch { //do something good 
+        }
+    }
+
+    public class searchedElements
+    {
+        public Triangularity.Models.Triangle triangle { get; set; }
+        public string row { get; set; }
+        public int column { get; set; }
+    }
+}
+
