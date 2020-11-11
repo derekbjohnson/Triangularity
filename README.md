@@ -18,7 +18,8 @@ Given the vertex coordinates, calculate the row and column for the triangle.
 * Produces: "The Triangle is at C10"
 
 # Remaining work:
-* Validation of coordinates
+* ~~Validation of coordinates~~
+* ~~Initial xUnit Tests~~
 * Documentation that's not terrible
 * UI in Blazor
 * Get app running on Azure
