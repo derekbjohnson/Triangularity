@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Drawing;
 
 namespace Triangularity.Models
 {
@@ -36,7 +35,12 @@ namespace Triangularity.Models
         //Vertex 1 is variable based on orientation
         public bool IsValid()
         {
-            return Vertex2.X < Vertex3.X && Vertex2.Y < Vertex3.Y;
+            return Vertex2.x < Vertex3.x && Vertex2.y < Vertex3.y;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[ {0}, {1}, {2} ]", Vertex1.ToString(), Vertex2.ToString(), Vertex3.ToString());
         }
     }
 

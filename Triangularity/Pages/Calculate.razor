@@ -3,54 +3,70 @@
 <h1>Calculate Triangle Row and Column</h1>
 <p>Given the vertex coordinates, calculate the row and column for the triangle:</p>
 
-<EditForm Model="@img" OnSubmit="GetTriangle">
-    <InputText @bind-Value="row"/>
-    <InputNumber @bind-Value="column"/>
+<EditForm Model="@viewTriangle" OnValidSubmit="GetTriangle">
+    <DataAnnotationsValidator />
+    <InputText @bind-Value="viewTriangle.row" />
+    <InputNumber @bind-Value="viewTriangle.column" />
     <button type="submit">Triangulate!</button>
 </EditForm>
 <br/> <br/>
 <ul>
-    @foreach(var calculated in calculatedTriangles)
-    {
-        <li>Triangle @calculated.row @calculated.column located at @triangle.Vertex1, @triangle.Vertex2, @triangle.Vertex3</li>
-    }
+        @foreach(var item in calculatedTriangles)
+        {
+            <li>Triangle @item.row @item.column would be at @item.triangle.ToString() </li>
+        }
 </ul>
 
 @code{     
     private Triangularity.Models.Image img { get; set; }
     private Triangularity.Models.Triangle triangle { get; set; }
-    private List<searchedElements> calculatedTriangles = new List<searchedElements>();
 
-    private string row { get; set; }
-    private int column { get; set; }
+
+    public viewElement viewTriangle { get; set; }
+
+    private List<viewElement> calculatedTriangles = new List<viewElement>();
+
 
     protected override void OnInitialized()
     {
         img = new Triangularity.Models.Image();
-        row = "B";
-        column = 3;
-        GetTriangle();
+        viewTriangle = new viewElement();
+        viewTriangle.row = "B";
+        viewTriangle.column = 3;
     }
 
     private void GetTriangle()
     {
         try
         {
-            triangle = img.GetVerticesByRowCol(char.Parse(row), column);
-
-            calculatedTriangles.Add(new searchedElements { triangle = triangle, row = row, column = column });
-            calculatedTriangles.Add(new searchedElements { triangle = triangle, row = row, column = column });
+            viewTriangle.triangle = img.GetVerticesByRowCol(char.Parse(viewTriangle.row), viewTriangle.column);
+            calculatedTriangles.Add(new viewElement(viewTriangle.triangle, viewTriangle.row, viewTriangle.column));
 
         }
         catch { //do something good 
         }
     }
 
-    public class searchedElements
+    public class viewElement
     {
         public Triangularity.Models.Triangle triangle { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.StringLength(1,ErrorMessage ="Whoops! That won't match a row in the image")]
         public string row { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 12, ErrorMessage ="Invalid column size")]
         public int column { get; set; }
+
+        public viewElement() { }
+
+        public viewElement(Triangularity.Models.Triangle inTriangle, string inRow, int inColumn)
+        {
+            triangle = inTriangle;
+            row = inRow;
+            column = inColumn;
+        }
     }
 }
 

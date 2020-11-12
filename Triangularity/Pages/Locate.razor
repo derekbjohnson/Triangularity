@@ -6,13 +6,14 @@
 <img src="/images/coordinates.jpg" alt="Triangularious!" />
 <br/><br/>
 
-     <EditForm Model="@img" OnValidSubmit="AddTriangle">
-         <InputNumber @bind-Value="v1x" />
-         <InputNumber @bind-Value="v1y" />
-         <InputNumber @bind-Value="v2x" />
-         <InputNumber @bind-Value="v2y" />
-         <InputNumber @bind-Value="v3x" />
-         <InputNumber @bind-Value="v3y" />
+     <EditForm Model="@inputShape" OnValidSubmit="AddTriangle">
+         <DataAnnotationsValidator/> 
+         <InputNumber @bind-Value="inputShape.v1x" />
+         <InputNumber @bind-Value="inputShape.v1y" />
+         <InputNumber @bind-Value="inputShape.v2x" />
+         <InputNumber @bind-Value="inputShape.v2y" />
+         <InputNumber @bind-Value="inputShape.v3x" />
+         <InputNumber @bind-Value="inputShape.v3y" />
          <button type="submit">Locate!</button>
      </EditForm>
 <br/><br/>
@@ -25,12 +26,9 @@
      </ul>
 
 @code{     
-    private Triangularity.Models.Image img { get; set; }
-    private List<potentialShape> searchedElements = new List<potentialShape>();
-    public int v1x = 10, v1y = 20, v2x = 10, v2y = 10, v3x = 20, v3y = 20;
-
-
-    private int tester { get; set; }
+    public Triangularity.Models.Image img { get; set; }
+    private viewTriangle inputShape = new viewTriangle();
+    private List<viewTriangle> searchedElements = new List<viewTriangle>();
 
     protected override void OnInitialized()
     {
@@ -41,11 +39,9 @@
     {
         try
         {
-            var addition = new potentialShape();
-            addition.triangle = new Triangularity.Models.Triangle(v1x, v1y, v2x, v2y, v3x, v3y);
-            addition.location = img.GetLocationByVertices(v1x, v1y, v2x, v2y, v3x, v3y);
-
-            searchedElements.Add(addition);
+            inputShape.location = img.GetLocationByVertices(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
+            inputShape.triangle = new Models.Triangle(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
+            searchedElements.Add(new viewTriangle(inputShape.triangle, inputShape.location));
         }
         catch
         {
@@ -53,12 +49,43 @@
         }
     }
 
-    public class potentialShape
+    public class viewTriangle
     {
         public Triangularity.Models.Triangle triangle { get; set; }
-        public int v1x = 10, v1y = 20, v2x = 10, v2y = 10, v3x = 20, v3y = 20;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v1x { get; set; } = 50;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v1y { get; set; } = 20;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v2x { get; set; } = 40;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v2y { get; set; } = 20;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v3x { get; set; } = 50;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
+        public int v3y { get; set; } = 30;
 
         public string location { get; set; }
+
+        public viewTriangle() { }
+
+        public viewTriangle(Triangularity.Models.Triangle inTriangle, string inLocation)
+        {
+            triangle = inTriangle;
+            location = inLocation;
+        }
     }
 }
 

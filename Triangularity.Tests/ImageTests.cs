@@ -1,6 +1,5 @@
 using Xunit;
 using Triangularity.Models;
-using System.Drawing;
 
 namespace Triangularity.Tests
 {

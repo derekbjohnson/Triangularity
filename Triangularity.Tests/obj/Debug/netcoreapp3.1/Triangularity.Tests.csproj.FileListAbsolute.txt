@@ -1,3 +1,4 @@
+C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.csprojAssemblyReference.cache
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.csproj.CoreCompileInputs.cache
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.AssemblyInfoInputs.cache
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.AssemblyInfo.cs
@@ -169,7 +170,6 @@ C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\bin\Debug\netcorea
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\bin\Debug\netcoreapp3.1\Triangularity.dll
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\bin\Debug\netcoreapp3.1\Triangularity.pdb
-C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.csprojAssemblyReference.cache
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.csproj.CopyComplete
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.dll
 C:\Users\djohn\source\repos\Triangularity\Triangularity.Tests\obj\Debug\netcoreapp3.1\Triangularity.Tests.pdb
