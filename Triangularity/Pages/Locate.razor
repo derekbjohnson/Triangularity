@@ -1,21 +1,33 @@
 ﻿@page "/locate"
 
 <h1>Locate Triangle By Vertices</h1>
-<p>The task, calculate the triangle coordinates for an image with right triangles such that for a given row (A-F) and column (1-12) you can produce any of the triangles in the layout below</p>
+<p>Given the vertex coordinates, calculate the row and column for the triangle</p>
 
 <img src="/images/coordinates.jpg" alt="Triangularious!" />
 <br/><br/>
 
      <EditForm Model="@inputShape" OnValidSubmit="AddTriangle">
-         <DataAnnotationsValidator/> 
-         <InputNumber @bind-Value="inputShape.v1x" />
-         <InputNumber @bind-Value="inputShape.v1y" />
-         <InputNumber @bind-Value="inputShape.v2x" />
-         <InputNumber @bind-Value="inputShape.v2y" />
-         <InputNumber @bind-Value="inputShape.v3x" />
-         <InputNumber @bind-Value="inputShape.v3y" />
-         <button type="submit">Locate!</button>
-     </EditForm>
+         <DataAnnotationsValidator />
+         <div class="form-group">
+             <label for="v1x">v1x</label>
+             <InputNumber id="v1x" @bind-Value="inputShape.v1x" />
+             <label for="v1y">v1y</label>
+             <InputNumber id="v1y" @bind-Value="inputShape.v1y" />
+         </div>
+         <div class="form-group">
+             <label for="v2x">v2x</label>
+             <InputNumber id="v2x" @bind-Value="inputShape.v2x" />
+             <label for="v2y">v2y</label>
+             <InputNumber id="v2y" @bind-Value="inputShape.v2y" />
+         </div>
+         <div class="form-group">
+                 <label for="v3x">v3x</label>
+                 <InputNumber id="v3x" @bind-Value="inputShape.v3x" />
+                 <label for="v3y">v3y</label>
+                 <InputNumber id="v3y" @bind-Value="inputShape.v3y" />
+         </div>
+         <button class="btn-primary" type="submit">Locate!</button>
+</EditForm>
 <br/><br/>
 
      <ul>

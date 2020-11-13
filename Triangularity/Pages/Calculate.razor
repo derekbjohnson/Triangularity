@@ -1,13 +1,15 @@
 ﻿@page "/calculate"
 
-<h1>Calculate Triangle Row and Column</h1>
-<p>Given the vertex coordinates, calculate the row and column for the triangle:</p>
+<h1>Calculate Triangle by Row and Column</h1>
+<p>Given row (A-F) and column (1-12) determine triangle vertices:</p>
 
 <EditForm Model="@viewTriangle" OnValidSubmit="GetTriangle">
     <DataAnnotationsValidator />
-    <InputText @bind-Value="viewTriangle.row" />
-    <InputNumber @bind-Value="viewTriangle.column" />
-    <button type="submit">Triangulate!</button>
+    <label for="row">Row</label>
+    <InputText id="row" @bind-Value="viewTriangle.row" />
+    <label for="column">Column</label>
+    <InputNumber id="column" @bind-Value="viewTriangle.column" />
+    <button class="btn-primary" type="submit">Triangulate!</button>
 </EditForm>
 <br/> <br/>
 <ul>
