@@ -29,7 +29,6 @@ namespace Triangularity.Models
         public int TriangleLegSize { get; set; } = 10;
 
         //TODO: Determine if vertices are appropriate size (According to leg size)?
-        //TODO: Determine if vertices 
         private bool IsValidVertex(int x, int y) => ((0 <= x) && (x <= ImageSize) && (0 <= y) && (y <= ImageSize));
 
         private bool IsValidLocation(char row, int column)
