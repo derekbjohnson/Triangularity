@@ -21,5 +21,7 @@ Given the vertex coordinates, calculate the row and column for the triangle.
 * ~~Validation of coordinates~~
 * ~~Initial xUnit Tests~~
 * Documentation that's not terrible
-* UI in Blazor
-* Get app running on Azure
+* ~~UI in Blazor~~
+* ~~Get app running on Azure~~
+
+Example running at:  https://triangularity.azurewebsites.net
