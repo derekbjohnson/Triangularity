@@ -1,15 +1,16 @@
 ﻿@page "/calculate"
 @using Triangularity.Models;
 @using System.ComponentModel.DataAnnotations;
+@inject Services.ApiService apiService
 
 <h1>Calculate Triangle by Row and Column</h1>
 <p>Given row (A-F) and column (1-12) determine triangle vertices:</p>
 
-<EditForm Model="@ViewTriangle" OnValidSubmit="GetTriangle">
+<EditForm Model="@ViewTriangle" OnValidSubmit="GetTriangleApiResponse">
     <DataAnnotationsValidator />
     <label for="row">Row</label><br />
     <InputText id="row" @bind-Value="ViewTriangle.Row" />
-    <label for="column">Column</label><br />
+    <br /><label for="column">Column</label><br />
     <InputNumber id="column" @bind-Value="ViewTriangle.Column" />
     <br /><br /><button class="btn-primary" type="submit">Triangulate!</button>
 </EditForm>
@@ -22,35 +23,24 @@
 </ul>
 
 @code{     
-    private Image img { get; set; }
+    private Image Image { get; set; }
     private Triangle triangle { get; set; }
-
-
     public ViewElement ViewTriangle { get; set; }
-
     private List<ViewElement> calculatedTriangles = new List<ViewElement>();
-
 
     protected override void OnInitialized()
     {
-        img = new Image();
+        Image = new Image();
         ViewTriangle = new ViewElement();
         ViewTriangle.Row = "B";
         ViewTriangle.Column = 3;
     }
-
-    private void GetTriangle()
+    
+    private async void GetTriangleApiResponse()
     {
-        try
-        {
-            ViewTriangle.Triangle = img.GetVerticesByRowCol(char.Parse(ViewTriangle.Row), ViewTriangle.Column);
-            calculatedTriangles.Add(new ViewElement(ViewTriangle.Triangle, ViewTriangle.Row, ViewTriangle.Column));
-
-        }
-        catch 
-        { 
-            //do something good 
-        }
+        ViewTriangle.Triangle = await apiService.GetTriangleByRowCol(char.Parse(ViewTriangle.Row), ViewTriangle.Column);
+        calculatedTriangles.Add(new ViewElement(ViewTriangle.Triangle, ViewTriangle.Row, ViewTriangle.Column));
+        StateHasChanged();
     }
 
     public class ViewElement

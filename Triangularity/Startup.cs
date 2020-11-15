@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using Triangularity.Services;
 
 namespace Triangularity
 {
@@ -20,6 +22,11 @@ namespace Triangularity
             services.AddControllers();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddHttpClient<ApiService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44342/");
+                //client.BaseAddress = new Uri("http://triangularity.azurewebsites.net/");
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
