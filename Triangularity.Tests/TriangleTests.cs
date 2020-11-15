@@ -9,7 +9,7 @@ namespace Triangularity.Tests
         [Fact]
         public void TriangleInvalid()
         {
-            var testTriangle = new Triangle()
+            var testTriangle = new Triangle
             {
                 Vertex1 = new Point(0, 0),
                 Vertex2 = new Point(10, 0),

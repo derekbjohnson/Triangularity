@@ -41,7 +41,7 @@ namespace Triangularity.Tests
         {
             var img = new Image();
 
-            string actual = img.GetLocationByVertices(v1x, v1y, v2x, v2y, v3x, v3y);
+            var actual = img.GetLocationByVertices(v1x, v1y, v2x, v2y, v3x, v3y);
 
             Assert.Equal(expected, actual);
 

@@ -1,73 +1,77 @@
 ﻿@page "/calculate"
+@using Triangularity.Models;
+@using System.ComponentModel.DataAnnotations;
 
 <h1>Calculate Triangle by Row and Column</h1>
 <p>Given row (A-F) and column (1-12) determine triangle vertices:</p>
 
-<EditForm Model="@viewTriangle" OnValidSubmit="GetTriangle">
+<EditForm Model="@ViewTriangle" OnValidSubmit="GetTriangle">
     <DataAnnotationsValidator />
-    <label for="row">Row</label>
-    <InputText id="row" @bind-Value="viewTriangle.row" />
-    <label for="column">Column</label>
-    <InputNumber id="column" @bind-Value="viewTriangle.column" />
-    <button class="btn-primary" type="submit">Triangulate!</button>
+    <label for="row">Row</label><br />
+    <InputText id="row" @bind-Value="ViewTriangle.Row" />
+    <label for="column">Column</label><br />
+    <InputNumber id="column" @bind-Value="ViewTriangle.Column" />
+    <br /><br /><button class="btn-primary" type="submit">Triangulate!</button>
 </EditForm>
-<br/> <img src="/images/sillyCoordinates.png" /> <br/>
+<br /> <img src="/images/sillyCoordinates.png" /> <br />
 <ul>
-        @foreach(var item in calculatedTriangles)
-        {
-            <li>Triangle @item.row @item.column would be at @item.triangle.ToString() </li>
-        }
+    @foreach (var item in calculatedTriangles)
+    {
+        <li>Triangle @item.Row @item.Column would be at @item.Triangle.ToString() </li>
+    }
 </ul>
 
 @code{     
-    private Triangularity.Models.Image img { get; set; }
-    private Triangularity.Models.Triangle triangle { get; set; }
+    private Image img { get; set; }
+    private Triangle triangle { get; set; }
 
 
-    public viewElement viewTriangle { get; set; }
+    public ViewElement ViewTriangle { get; set; }
 
-    private List<viewElement> calculatedTriangles = new List<viewElement>();
+    private List<ViewElement> calculatedTriangles = new List<ViewElement>();
 
 
     protected override void OnInitialized()
     {
-        img = new Triangularity.Models.Image();
-        viewTriangle = new viewElement();
-        viewTriangle.row = "B";
-        viewTriangle.column = 3;
+        img = new Image();
+        ViewTriangle = new ViewElement();
+        ViewTriangle.Row = "B";
+        ViewTriangle.Column = 3;
     }
 
     private void GetTriangle()
     {
         try
         {
-            viewTriangle.triangle = img.GetVerticesByRowCol(char.Parse(viewTriangle.row), viewTriangle.column);
-            calculatedTriangles.Add(new viewElement(viewTriangle.triangle, viewTriangle.row, viewTriangle.column));
+            ViewTriangle.Triangle = img.GetVerticesByRowCol(char.Parse(ViewTriangle.Row), ViewTriangle.Column);
+            calculatedTriangles.Add(new ViewElement(ViewTriangle.Triangle, ViewTriangle.Row, ViewTriangle.Column));
 
         }
-        catch { //do something good 
+        catch 
+        { 
+            //do something good 
         }
     }
 
-    public class viewElement
+    public class ViewElement
     {
-        public Triangularity.Models.Triangle triangle { get; set; }
+        public Triangle Triangle { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.StringLength(1,ErrorMessage ="Whoops! That won't match a row in the image")]
-        public string row { get; set; }
+        [Required]
+        [StringLength(1, ErrorMessage = "Whoops! That won't match a row in the image")]
+        public string Row { get; set; }
 
-        [System.ComponentModel.DataAnnotations.Required]
-        [System.ComponentModel.DataAnnotations.Range(1, 12, ErrorMessage ="Invalid column size")]
-        public int column { get; set; }
+        [Required]
+        [Range(1, 12, ErrorMessage = "Invalid column size")]
+        public int Column { get; set; }
 
-        public viewElement() { }
+        public ViewElement() { }
 
-        public viewElement(Triangularity.Models.Triangle inTriangle, string inRow, int inColumn)
+        public ViewElement(Triangle inTriangle, string inRow, int inColumn)
         {
-            triangle = inTriangle;
-            row = inRow;
-            column = inColumn;
+            Triangle = inTriangle;
+            Row = inRow;
+            Column = inColumn;
         }
     }
 }

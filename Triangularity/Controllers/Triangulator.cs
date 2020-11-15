@@ -7,7 +7,6 @@ namespace Triangularity.Controllers
     [Route("api/[controller]")]
     public class Triangulator : Controller
     {
-
         //Return coordinates of the given triangle
         // GET api/Triangulator/{row}/{column}
         [HttpGet("{row}/{column}")]
@@ -18,9 +17,9 @@ namespace Triangularity.Controllers
                 var img = new Image();
                 return new ObjectResult(img.GetVerticesByRowCol(row, column));
             }
-            catch(Exception)
-            { 
-                return NotFound(); 
+            catch (Exception)
+            {
+                return NotFound();
             }
         }
 
@@ -34,7 +33,7 @@ namespace Triangularity.Controllers
                 var img = new Image();
                 return new ObjectResult(img.GetLocationByVertices(v1x, v1y, v2x, v2y, v3x, v3y));
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return NotFound();
             }

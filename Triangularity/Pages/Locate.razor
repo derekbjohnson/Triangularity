@@ -1,59 +1,59 @@
 ﻿@page "/locate"
 
 <h1>Locate Triangle By Vertices</h1>
-<p>Given the vertex coordinates, calculate the row and column for the triangle</p>
+<p>Given the vertex coordinates, calculate the row and column for the Triangle</p>
 
 <img src="/images/coordinates.jpg" alt="Triangularious!" />
-<br/><br/>
+<br /><br />
 
-     <EditForm Model="@inputShape" OnValidSubmit="AddTriangle">
-         <DataAnnotationsValidator />
-         <div class="form-group">
-             <label for="v1x">v1x</label>
-             <InputNumber id="v1x" @bind-Value="inputShape.v1x" />
-             <label for="v1y">v1y</label>
-             <InputNumber id="v1y" @bind-Value="inputShape.v1y" />
-         </div>
-         <div class="form-group">
-             <label for="v2x">v2x</label>
-             <InputNumber id="v2x" @bind-Value="inputShape.v2x" />
-             <label for="v2y">v2y</label>
-             <InputNumber id="v2y" @bind-Value="inputShape.v2y" />
-         </div>
-         <div class="form-group">
-                 <label for="v3x">v3x</label>
-                 <InputNumber id="v3x" @bind-Value="inputShape.v3x" />
-                 <label for="v3y">v3y</label>
-                 <InputNumber id="v3y" @bind-Value="inputShape.v3y" />
-         </div>
-         <button class="btn-primary" type="submit">Locate!</button>
+<EditForm Model="@inputShape" OnValidSubmit="AddTriangle">
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <label for="v1x">v1x</label>
+        <InputNumber id="v1x" @bind-Value="inputShape.v1x" />
+        <br /><label for="v1y">v1y</label>
+        <InputNumber id="v1y" @bind-Value="inputShape.v1y" />
+    </div>
+    <div class="form-group">
+        <label for="v2x">v2x</label>
+        <InputNumber id="v2x" @bind-Value="inputShape.v2x" />
+        <br /><label for="v2y">v2y</label>
+        <InputNumber id="v2y" @bind-Value="inputShape.v2y" />
+    </div>
+    <div class="form-group">
+    <label for="v3x">v3x</label>
+    <InputNumber id="v3x" @bind-Value="inputShape.v3x" />
+    <br /><label for="v3y">v3y</label>
+    <InputNumber id="v3y" @bind-Value="inputShape.v3y" />
+    </div>
+    <button class="btn-primary" type="submit">Locate!</button>
 </EditForm>
-<br/><br/>
+<br /><br />
 
-     <ul>
-         @foreach (var shape in searchedElements)
-         {
-             <li>The coordinates @shape.triangle.Vertex1, @shape.triangle.Vertex2, @shape.triangle.Vertex3 would be @shape.location</li>
-         }
-     </ul>
+<ul>
+    @foreach (var shape in searchedElements)
+    {
+        <li>The coordinates @shape.Triangle.Vertex1, @shape.Triangle.Vertex2, @shape.Triangle.Vertex3 would be @shape.Location</li>
+    }
+</ul>
 
 @code{     
-    public Triangularity.Models.Image img { get; set; }
-    private viewTriangle inputShape = new viewTriangle();
-    private List<viewTriangle> searchedElements = new List<viewTriangle>();
+    public Triangularity.Models.Image Image { get; set; }
+    private ViewTriangle inputShape = new ViewTriangle();
+    private List<ViewTriangle> searchedElements = new List<ViewTriangle>();
 
     protected override void OnInitialized()
     {
-        img = new Triangularity.Models.Image();
+        Image = new Triangularity.Models.Image();
     }
 
     private void AddTriangle()
     {
         try
         {
-            inputShape.location = img.GetLocationByVertices(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
-            inputShape.triangle = new Models.Triangle(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
-            searchedElements.Add(new viewTriangle(inputShape.triangle, inputShape.location));
+            inputShape.Location = Image.GetLocationByVertices(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
+            inputShape.Triangle = new Models.Triangle(inputShape.v1x, inputShape.v1y, inputShape.v2x, inputShape.v2y, inputShape.v3x, inputShape.v3y);
+            searchedElements.Add(new ViewTriangle(inputShape.Triangle, inputShape.Location));
         }
         catch
         {
@@ -61,9 +61,9 @@
         }
     }
 
-    public class viewTriangle
+    public class ViewTriangle
     {
-        public Triangularity.Models.Triangle triangle { get; set; }
+        public Triangularity.Models.Triangle Triangle { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required]
         [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
@@ -89,14 +89,14 @@
         [System.ComponentModel.DataAnnotations.Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
         public int v3y { get; set; } = 30;
 
-        public string location { get; set; }
+        public string Location { get; set; }
 
-        public viewTriangle() { }
+        public ViewTriangle() { }
 
-        public viewTriangle(Triangularity.Models.Triangle inTriangle, string inLocation)
+        public ViewTriangle(Triangularity.Models.Triangle inTriangle, string inLocation)
         {
-            triangle = inTriangle;
-            location = inLocation;
+            Triangle = inTriangle;
+            Location = inLocation;
         }
     }
 }
