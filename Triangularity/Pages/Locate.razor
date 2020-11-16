@@ -86,7 +86,21 @@
         [Range(1, 60, ErrorMessage = "Coordinate invalid for image size.")]
         public int v3y { get; set; } = 30;
 
-        public string Location { get; set; }
+        private string _location;
+
+        public string Location
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_location))
+                    return _location;
+                else
+                {
+                    return "Not Located";
+                }
+            }
+            set => _location = value;
+        }
 
         public ViewTriangle() { }
 

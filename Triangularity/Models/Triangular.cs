@@ -32,13 +32,15 @@ namespace Triangularity.Models
         }
 
         /// <summary>
-        /// A triangular is valid iif verext 2 is the leftmost and vertex 3 is the rightmost. Vertex 1 is variable
-        /// based on the orientation.
+        /// A triangular is valid iif vertex 2 is the leftmost and vertex 3 is the rightmost. Vertex 1 is variable
+        /// based on the orientation, but should match the (v2x and v3y) OR (v2y and v3x)
         /// </summary>
         /// <returns>true when valid, false otherwise</returns>
         public bool IsValid()
         {
-            return Vertex2.X < Vertex3.X && Vertex2.Y < Vertex3.Y;
+            return (Vertex2.X < Vertex3.X && Vertex2.Y < Vertex3.Y) &&
+                (((Vertex1.Y > Vertex2.Y) && (Vertex1.X == Vertex2.X) && (Vertex1.Y == Vertex3.Y) && (Vertex1.X < Vertex3.X)) ||
+                ((Vertex1.Y == Vertex2.Y) && (Vertex1.X > Vertex2.X) && (Vertex1.Y < Vertex3.Y) && (Vertex1.X == Vertex3.X)));
         }
 
         public override string ToString()

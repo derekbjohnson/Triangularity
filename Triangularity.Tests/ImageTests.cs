@@ -26,12 +26,15 @@ namespace Triangularity.Tests
             Assert.Equal(expected.Vertex3, actual.Vertex3);
         }
 
-        [Fact]
-        public void GetLocationByVertices_Invalid()
+        [Theory]
+        [InlineData(-1,-1,-1,-1,-1,-1)]
+        [InlineData(10, 20, 10, 10, 20, 25)]
+        [InlineData(50, 20, 60, 20, 50, 30)]
+        public void GetLocationByVertices_Invalid(int v1x, int v1y, int v2x, int v2y, int v3x, int v3y)
         {
             var img = new Image();
 
-            Assert.Null(img.GetLocationByVertices(-1, -1, -1, -1, -1, -1));
+            Assert.Null(img.GetLocationByVertices(v1x, v1y, v2x, v2y, v3x, v3y));
         }
 
         [Theory]
@@ -46,7 +49,5 @@ namespace Triangularity.Tests
             Assert.Equal(expected, actual);
 
         }
-
-        //TODO: Test image validity by image and triangle leg size
     }
 }

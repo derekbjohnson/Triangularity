@@ -10,9 +10,16 @@ namespace Triangularity.Models
         //TODO: Determine if leg size is less than image size
         public int TriangleLegSize { get; set; } = 10;
 
+        private bool IsValidVertex(int x, int y) => ((0 <= x) && (x <= ImageSize) && (0 <= y) && (y <= ImageSize));
+
         public string GetLocationByVertices(int v1x, int v1y, int v2x, int v2y, int v3x, int v3y)
         {
             if (!IsValidVertex(v1x, v1y) || !IsValidVertex(v2x, v2y) || !IsValidVertex(v3x, v3y))
+                return null;
+
+            var Triangle = new Triangle(v1x, v1y, v2x, v2y, v3x, v3y);
+
+            if (!Triangle.IsValid())
                 return null;
 
             try
@@ -52,20 +59,5 @@ namespace Triangularity.Models
                 return null;
             }
         }
-
-        //TODO: Determine if vertices are appropriate size (According to leg size)?
-        private bool IsValidVertex(int x, int y) => ((0 <= x) && (x <= ImageSize) && (0 <= y) && (y <= ImageSize));
-
-        private bool IsValidLocation(char row, int column)
-        {
-            bool isValid = true;
-
-            // Artificial constraint
-            isValid = char.ToUpper(row) - 64 >= 1;
-
-            return isValid;
-
-        }
-
     }
 }
